@@ -156,23 +156,3 @@ print(features.shape)
 print(labels.shape)
 np.save('features.npy', features)
 np.save('labels.npy', labels)
-
-scaler = preprocessing.StandardScaler()
-features = scaler.fit_transform(features)
-
-print('Running TSNE')
-tsne = manifold.TSNE(
-        n_components=2,
-        init='pca',
-        learning_rate='auto',
-        n_jobs=4,
-        random_state=0,
-    )
-X_tsne = tsne.fit_transform(features)
-
-colors = labels.copy()
-for code, cls_id in class_code_to_id.items():
-    colors[labels == code] = cls_id
-plt.scatter(X_tsne[:, 0], X_tsne[:, 1], c=colors)
-plt.show()
-plt.close()
